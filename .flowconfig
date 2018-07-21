@@ -2,6 +2,7 @@
 .*/node_modules/metro-bundler/.*
 .*/node_modules/react-native/.*
 .*/node_modules/config-chain/test/broken.json
+.*/node_modules/react-360-web/
 
 [include]
 
