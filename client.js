@@ -15,11 +15,21 @@ function init(bundle, parent, options = {}) {
     r360.createRoot('Backstrokes360', {
       /* initial props */
     }),
-    new Location([0, 0, -14]),
+    new Location([0, 0, 0]),
   );
 
   // Load the initial environment
   r360.compositor.setBackground(r360.getAssetURL('star_bg.jpg'));
+
+  const bundleURL = new URL('http://localhost:8081/' + bundle);
+
+  console.warn(`HotReload on ${bundle}`);
+  r360.runtime.context.callFunction('HMRClient', 'enable', [
+    'vr',
+    bundleURL.pathname.toString().substr(1),
+    bundleURL.hostname,
+    bundleURL.port,
+  ]);
 }
 
 window.React360 = { init };

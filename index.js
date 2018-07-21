@@ -12,25 +12,37 @@ import {
 } from 'react-360';
 
 import Earth from './components/earth';
-import Marker from './components/earth/components/locationMarker/marker';
+import Marker from './components/marker';
 
 const europeanCities = [
   {
-    coordinates: { lat: 48.938519, lon: 2.35607 },
+    coordinates: { lat: 48.938519, lon: -3.35607 },
     component: <Marker />,
   },
 ];
+
+const Checkins = require('./data/checkins');
+
+const checkins = Checkins.map(checkin => {
+  return {
+    coordinates: {
+      lat: parseFloat(checkin.location.lat),
+      lon: parseFloat(checkin.location.lng),
+    },
+    component: <Marker />,
+  };
+});
 
 export default class Backstrokes360 extends React.Component {
   constructor() {
     super();
     this.earthRadius = 2.5;
     this.state = {
-      locationItems: europeanCities,
+      offset: 0,
     };
   }
   render() {
-    const earthRadius = 7;
+    const earthRadius = 1.5;
     const buttonStyle = {
       backgroundColor: 'black',
       alignItems: 'center',
@@ -40,15 +52,56 @@ export default class Backstrokes360 extends React.Component {
       height: 1,
       flexDirection: 'row',
     };
+    console.log(this.state.offset);
     return (
       <View>
-        <Earth
-          locationMarkerStyle={{ color: 'red' }}
-          showLocationMarkers={true}
-          wrap={asset('earth.jpg')}
-          locationContent={this.state.locationItems}
-          scale={earthRadius}
-        />
+        <View
+          style={{
+            width: 1.5,
+            height: 1,
+            backgroundColor: 'grey',
+            padding: 0.1,
+            transform: [{ translate: [-3.4, 1, -3.5] }, { rotateY: 25 }],
+          }}>
+          <Text>Select an option to load new locations</Text>
+          <VrButton
+            style={buttonStyle}
+            onClick={() =>
+              this.setState({
+                offset: this.state.offset > 0 ? (this.state.offset -= 10) : 0,
+              })
+            }>
+            <Text>Back</Text>
+          </VrButton>
+          <VrButton
+            style={buttonStyle}
+            onClick={() =>
+              this.setState({
+                offset:
+                  this.state.offset < checkins.length - 10
+                    ? (this.state.offset += 10)
+                    : checkins.length,
+              })
+            }>
+            <Text>Forward</Text>
+          </VrButton>
+        </View>
+        <View
+          style={{
+            position: 'absolute',
+            transform: [{ translate: [0, 0, -3.5] }],
+          }}>
+          <Earth
+            locationMarkerStyle={{ color: 'red' }}
+            showLocationMarkers={true}
+            wrap={asset('earth.jpg')}
+            locationContent={checkins.slice(
+              this.state.offset,
+              this.state.offset + 10,
+            )}
+            scale={earthRadius}
+          />
+        </View>
         <AmbientLight intensity={1.2} decay={100} />
       </View>
     );

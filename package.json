@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "create-react-class": "^15.6.3",
+    "geolib": "^2.0.24",
+    "node-foursquare": "^0.4.2",
     "ovrui": "^1.4.1",
     "prop-types": "^15.6.2",
     "react": "16.0.0",
