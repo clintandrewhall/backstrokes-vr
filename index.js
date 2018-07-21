@@ -2,32 +2,23 @@ import React from 'react';
 import {
   AppRegistry,
   asset,
-  Pano,
   Text,
   AmbientLight,
-  Image,
   View,
   VrButton,
   StyleSheet,
 } from 'react-360';
 
-import Earth from './components/earth';
+import Earth from './components/react-vr-geolocate';
 import Marker from './components/marker';
 
-const europeanCities = [
-  {
-    coordinates: { lat: 48.938519, lon: -3.35607 },
-    component: <Marker />,
-  },
-];
+const Trips = require('./data/allTrips');
 
-const Checkins = require('./data/checkins');
-
-const checkins = Checkins.map(checkin => {
+const trips = Trips.trips.map(trip => {
   return {
     coordinates: {
-      lat: parseFloat(checkin.location.lat),
-      lon: parseFloat(checkin.location.lng),
+      lat: parseFloat(trip.center.lat),
+      lon: parseFloat(trip.center.lng),
     },
     component: <Marker />,
   };
@@ -52,7 +43,7 @@ export default class Backstrokes360 extends React.Component {
       height: 1,
       flexDirection: 'row',
     };
-    console.log(this.state.offset);
+
     return (
       <View>
         <View
@@ -78,9 +69,9 @@ export default class Backstrokes360 extends React.Component {
             onClick={() =>
               this.setState({
                 offset:
-                  this.state.offset < checkins.length - 10
+                  this.state.offset < trips.length - 10
                     ? (this.state.offset += 10)
-                    : checkins.length,
+                    : trips.length,
               })
             }>
             <Text>Forward</Text>
@@ -95,9 +86,9 @@ export default class Backstrokes360 extends React.Component {
             locationMarkerStyle={{ color: 'red' }}
             showLocationMarkers={true}
             wrap={asset('earth.jpg')}
-            locationContent={checkins.slice(
+            locationContent={trips.slice(
               this.state.offset,
-              this.state.offset + 10,
+              this.state.offset + 10
             )}
             scale={earthRadius}
           />
@@ -124,7 +115,6 @@ export default class Backstrokes360 extends React.Component {
     );
   }
 }
-*/
 const styles = StyleSheet.create({
   panel: {
     // Fill the entire surface
@@ -145,4 +135,4 @@ const styles = StyleSheet.create({
   },
 });
 
-/*AppRegistry.registerComponent('Backstrokes360', () => Backstrokes360);*/
+AppRegistry.registerComponent('Backstrokes360', () => Backstrokes360);*/
