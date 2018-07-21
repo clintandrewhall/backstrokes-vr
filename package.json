@@ -10,12 +10,15 @@
     "test": "jest"
   },
   "dependencies": {
+    "create-react-class": "^15.6.3",
+    "ovrui": "^1.4.1",
+    "prop-types": "^15.6.2",
     "react": "16.0.0",
     "react-360": "~1.0.0",
     "react-360-web": "~1.0.0",
     "react-native": "~0.49.5",
-    "react-vr-geolocate": "^0.1.2",
-    "three": "^0.87.0"
+    "redux": "^4.0.0",
+    "three": "^0.94.0"
   },
   "devDependencies": {
     "babel-jest": "^19.0.0",
