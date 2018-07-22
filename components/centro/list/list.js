@@ -46,9 +46,11 @@ export default class List extends React.Component {
         ? data.length
         : startRowsIndex + visibleRows;
     var rows = [];
+    var result = [];
     if (renderRow) {
       for (var i = startRowsIndex; i < length; i++) {
         rows.push(renderRow(i, data[i]));
+        result.push(data[i]);
       }
     }
     return rows;
@@ -59,6 +61,8 @@ export default class List extends React.Component {
     var index =
       startRowsIndex - visibleRows > 0 ? startRowsIndex - visibleRows : 0;
     this.setState({ startRowsIndex: index });
+
+    this.props.onScroll && this.props.onScroll(index);
   };
 
   scrollDown = () => {
@@ -68,6 +72,7 @@ export default class List extends React.Component {
         ? startRowsIndex
         : startRowsIndex + visibleRows;
     this.setState({ startRowsIndex: index });
+    this.props.onScroll && this.props.onScroll(index);
   };
 
   render() {
@@ -78,7 +83,9 @@ export default class List extends React.Component {
       <View {...this.props}>
         <Button onClick={this.scrollUp} disabled={disabledUp} bg="transparent">
           <View hcenter h={0.1}>
-            <Text style={{ fontSize: 0.09 }}>{disabledUp ? ' ' : '...'}</Text>
+            <Text style={{ fontSize: 0.09 }}>
+              {disabledUp ? ' ' : 'Previous'}
+            </Text>
           </View>
         </Button>
         <View border={{ width: 0.01 }}>{this.renderRows()}</View>
@@ -87,7 +94,9 @@ export default class List extends React.Component {
           disabled={disabledDown}
           bg="transparent">
           <View hcenter h={0.1}>
-            <Text style={{ fontSize: 0.09 }}>{disabledDown ? ' ' : '...'}</Text>
+            <Text style={{ fontSize: 0.09 }}>
+              {disabledDown ? ' ' : 'Next'}
+            </Text>
           </View>
         </Button>
       </View>

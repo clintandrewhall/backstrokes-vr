@@ -5,7 +5,6 @@ import { ReactInstance, Location } from 'react-360-web';
 
 function init(bundle, parent, options = {}) {
   const r360 = new ReactInstance(bundle, parent, {
-    // Add custom options here
     fullScreen: true,
     ...options,
   });
@@ -15,7 +14,7 @@ function init(bundle, parent, options = {}) {
     r360.createRoot('Backstrokes360', {
       /* initial props */
     }),
-    new Location([0, 0, 0]),
+    new Location([0, 0, 0])
   );
 
   // Load the initial environment

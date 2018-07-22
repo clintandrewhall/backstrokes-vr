@@ -246,7 +246,7 @@ const Backstroke = function(config: Configuration, Foursquare: any) {
     const radiusCity = options.radiusCity || backstrokes.radiusCity;
     const tripMinimum = options.tripMinimum || backstrokes.tripMinimum;
 
-    const results = [];
+    let results = [];
     let trip = [];
     let qualifyingCheckins = 0;
 
@@ -323,13 +323,30 @@ const Backstroke = function(config: Configuration, Foursquare: any) {
       results.push(buildTrip(trip));
     }
 
+    const consolidated = [];
+
+    results.forEach((result: Trip) => {
+      const lastTrip = consolidated.pop();
+
+      if (lastTrip && lastTrip.city === result.city) {
+        lastTrip.checkins = lastTrip.checkins.concat(result.checkins);
+        lastTrip.count += result.count;
+        lastTrip.end = result.end;
+        lastTrip.endDate = result.endDate;
+        consolidated.push(lastTrip);
+      } else {
+        lastTrip && consolidated.push(lastTrip);
+        consolidated.push(result);
+      }
+    });
+
     logger.info(
       'BUILT: ' +
-        results.length +
+        consolidated.length +
         ' trips using ' +
         qualifyingCheckins +
         ' of ' +
-        checkins.length +
+        consolidated.length +
         ' checkins.'
     );
 
@@ -341,14 +358,14 @@ const Backstroke = function(config: Configuration, Foursquare: any) {
     return {
       totalCheckins: checkins.length,
       qualifyingCheckins,
-      totalTrips: results.length,
+      totalTrips: consolidated.length,
       home,
       range,
       startDate: after,
       endDate: before,
       start: moment(after).format('MMMM D, YYYY'),
       end: moment(before).format('MMMM D, YYYY'),
-      trips: results,
+      trips: consolidated,
     };
   }
 

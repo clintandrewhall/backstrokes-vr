@@ -4,7 +4,7 @@ import { Easing } from 'react-native';
 import SpaceSphere from './spaceSphere';
 import { overlayLonOffset } from '../../consts/rotationOffset';
 
-class Orbiter extends React.Component {
+class EarthRotate extends React.Component {
   constructor(props) {
     super(props);
     this.spin = this.spin.bind(this);
@@ -19,14 +19,12 @@ class Orbiter extends React.Component {
       duration: 200000,
       easing: Easing.linear,
     }).start(o => {
-      console.log('why');
       if (o.finished) {
         this.spin(to);
       }
     });
   }
   componentDidMount() {
-    console.log('hey');
     this.spin(360);
   }
   render() {
@@ -39,10 +37,7 @@ class Orbiter extends React.Component {
         <Animated.View
           style={{
             position: 'absolute',
-            transform: [
-              { rotateY: this.state.bounceValue },
-              { translate: [0, 0, overlayLonOffset] },
-            ],
+            transform: [{ rotateY: this.state.bounceValue }],
           }}>
           <SpaceSphere wrap={asset(this.props.src)} radius={this.props.size} />
         </Animated.View>
@@ -51,4 +46,4 @@ class Orbiter extends React.Component {
   }
 }
 
-export default Orbiter;
+export default EarthRotate;

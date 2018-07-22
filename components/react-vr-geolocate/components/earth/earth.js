@@ -1,5 +1,4 @@
 import React from 'react';
-import { asset } from 'react-360';
 import PropTypes from 'prop-types';
 import SpaceSphere from '../solar-system/spaceSphere';
 import Overlay from '../mapOverlay/overlay/overlay';
@@ -23,6 +22,7 @@ class Earth extends React.Component {
       <EarthSpin
         xOffset={earthSpinOffset}
         yOffset={0}
+        focalPoint={this.props.focalPoint}
         locationContent={locationContent}>
         <SpaceSphere wrap={wrap} radius={scale} lit={true} />
         <Overlay
@@ -30,6 +30,7 @@ class Earth extends React.Component {
           locationMarkerStyle={locationMarkerStyle}
           locationContent={locationContent}
           sphereRadius={scale}
+          selectedLocation={this.props.focalPoint}
         />
       </EarthSpin>
     );

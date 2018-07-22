@@ -5164,6 +5164,10 @@ react-transform-hmr@^1.0.4:
     global "^4.3.0"
     react-proxy "^1.1.7"
 
+react-vr-controller-raycaster@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-vr-controller-raycaster/-/react-vr-controller-raycaster-1.1.1.tgz#2aaee84007299fa2eb48d478100b20adbd78b325"
+
 react@16.0.0:
   version "16.0.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.0.0.tgz#ce7df8f1941b036f02b2cca9dbd0cb1f0e855e2d"
@@ -5694,6 +5698,10 @@ simple-plist@^0.2.1:
     bplist-creator "0.0.7"
     bplist-parser "0.1.1"
     plist "2.0.1"
+
+simple-raycaster@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/simple-raycaster/-/simple-raycaster-1.1.0.tgz#93b00ad2087637b440e6eaab20c0de2ecfafa33f"
 
 simple-swizzle@^0.2.2:
   version "0.2.2"
@@ -6712,6 +6720,10 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+yarn@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.7.0.tgz#0076b9fde6010e01950526a609bc53bc175ef925"
 
 yauzl@2.4.1:
   version "2.4.1"
