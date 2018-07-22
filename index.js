@@ -6,10 +6,14 @@ import {
   View,
   VrButton,
   Text,
+  AsyncStorage,
 } from 'react-360';
 
 import Earth from './components/react-vr-geolocate';
 import Marker from './components/marker';
+import Gallery, { imageTypes } from './components/react-vr-image-gallery';
+import './components/gallery';
+import './components/Hello360';
 
 const Trips = require('./data/allTrips');
 
@@ -29,127 +33,142 @@ export default class Backstrokes360 extends React.Component {
     this.state = {
       index: 0,
     };
+    AsyncStorage.setItem('trip:key', Trips.trips[this.state.index]).then(
+      console.log('SET')
+    );
   }
 
   render() {
     const earthRadius = 1;
 
     return (
-      <View style={{ alignItems: 'center' }}>
-        <View
-          style={{
-            position: 'absolute',
-            backgroundColor: '#333',
-            borderRadius: 0.05,
-            height: 0.25,
-            width: 0.25,
-            justifyContent: 'center',
-            alignContent: 'center',
-            transform: [{ translate: [-1.25, -1, -3] }, { rotateY: 30 }],
-          }}>
-          <VrButton
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignContent: 'center',
-            }}
-            onClick={() =>
-              this.setState({
-                index: Math.max(this.state.index - 1, 0),
-              })
-            }>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 0.25,
-                position: 'absolute',
-                top: -0.065,
-                left: 0.06,
-              }}>
-              {'<'}
-            </Text>
-          </VrButton>
-        </View>
-        <View
-          style={{
-            position: 'absolute',
-            backgroundColor: '#333',
-            borderRadius: 0.05,
-            height: 0.25,
-            width: 0.25,
-            justifyContent: 'center',
-            alignContent: 'center',
-            transform: [{ translate: [1.25, -1, -3] }, { rotateY: -30 }],
-          }}>
-          <VrButton
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignContent: 'center',
-            }}
-            onClick={() =>
-              this.setState({
-                index: Math.min(this.state.index + 1, trips.length - 1),
-              })
-            }>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 0.25,
-                position: 'absolute',
-                top: -0.065,
-                left: 0.06,
-              }}>
-              {'>'}
-            </Text>
-          </VrButton>
-        </View>
-        <View
-          style={{
-            position: 'absolute',
-            paddingLeft: 0.1,
-            paddingRight: 0.1,
-            transform: [{ translate: [0, -1, -2.5] }],
-          }}>
+      <View>
+        <View style={{ alignItems: 'center' }}>
           <View
             style={{
-              zIndex: 1,
               position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              opacity: 0.5,
-              backgroundColor: 'grey',
+              backgroundColor: '#333',
               borderRadius: 0.05,
-            }}
-          />
-          <Text
-            style={{
-              fontSize: 0.15,
               height: 0.25,
-              width: 1.2,
-              textAlign: 'center',
-              transform: [{ translateZ: -0.001 }, { translateY: -0.025 }],
+              width: 0.25,
+              justifyContent: 'center',
+              alignContent: 'center',
+              transform: [{ translate: [-1.25, -1, -3] }, { rotateY: 30 }],
             }}>
-            {Trips.trips[this.state.index].city}
-          </Text>
+            <VrButton
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignContent: 'center',
+              }}
+              onClick={() => {
+                this.setState({
+                  index: Math.max(this.state.index - 1, 0),
+                });
+                AsyncStorage.setItem(
+                  'trip:key',
+                  Trips.trips[this.state.index - 1]
+                );
+              }}>
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  fontSize: 0.25,
+                  position: 'absolute',
+                  top: -0.065,
+                  left: 0.06,
+                }}>
+                {'<'}
+              </Text>
+            </VrButton>
+          </View>
+          <View
+            style={{
+              position: 'absolute',
+              backgroundColor: '#333',
+              borderRadius: 0.05,
+              height: 0.25,
+              width: 0.25,
+              justifyContent: 'center',
+              alignContent: 'center',
+              transform: [{ translate: [1.25, -1, -3] }, { rotateY: -30 }],
+            }}>
+            <VrButton
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignContent: 'center',
+              }}
+              onClick={() => {
+                this.setState({
+                  index: Math.min(this.state.index + 1, trips.length - 1),
+                });
+                AsyncStorage.setItem(
+                  'trip:key',
+                  Trips.trips[this.state.index + 1]
+                );
+              }}>
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  fontSize: 0.25,
+                  position: 'absolute',
+                  top: -0.065,
+                  left: 0.06,
+                }}>
+                {'>'}
+              </Text>
+            </VrButton>
+          </View>
+          <View
+            style={{
+              position: 'absolute',
+              paddingLeft: 0.1,
+              paddingRight: 0.1,
+              transform: [{ translate: [0, -1, -2.5] }],
+            }}>
+            <View
+              style={{
+                zIndex: 1,
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                opacity: 0.5,
+                backgroundColor: 'grey',
+                borderRadius: 0.05,
+              }}
+            />
+            <Text
+              style={{
+                fontSize: 0.15,
+                height: 0.25,
+                width: 1.2,
+                textAlign: 'center',
+                transform: [{ translateZ: -0.001 }, { translateY: -0.025 }],
+              }}>
+              {Trips.trips[this.state.index].city} ({
+                Trips.trips[this.state.index].count
+              })
+            </Text>
+          </View>
+          <View
+            style={{
+              position: 'absolute',
+              transform: [{ translate: [0, 0, -3] }],
+            }}>
+            <Earth
+              locationMarkerStyle={{ color: 'red' }}
+              showLocationMarkers={true}
+              wrap={asset('earth.jpg')}
+              locationContent={trips}
+              scale={earthRadius}
+              focalPoint={trips[this.state.index]}
+            />
+          </View>
+          <AmbientLight intensity={1.2} decay={100} />
         </View>
-        <View
-          style={{
-            position: 'absolute',
-            transform: [{ translate: [0, 0, -3] }],
-          }}>
-          <Earth
-            locationMarkerStyle={{ color: 'red' }}
-            showLocationMarkers={true}
-            wrap={asset('earth.jpg')}
-            locationContent={trips}
-            scale={earthRadius}
-            focalPoint={trips[this.state.index]}
-          />
-        </View>
-        <AmbientLight intensity={1.2} decay={100} />
       </View>
     );
   }

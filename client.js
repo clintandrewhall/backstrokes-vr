@@ -10,11 +10,32 @@ function init(bundle, parent, options = {}) {
   });
 
   // Render your app content to the default cylinder surface
+  // r360.renderToSurface(
+  //   r360.createRoot('Hello360', {
+  //     /* initial props */
+  //   }),
+  //   r360.getDefaultSurface()
+  // );
+
+  // Render your app content to the default cylinder surface
   r360.renderToLocation(
     r360.createRoot('Backstrokes360', {
       /* initial props */
     }),
     new Location([0, 0, 0])
+  );
+
+  r360.renderToLocation(
+    r360.createRoot('CheckinGallery'),
+    new Location([2, 0, 0])
+  );
+
+  // Render your app content to the default cylinder surface
+  r360.renderToSurface(
+    r360.createRoot('Hello360', {
+      /* initial props */
+    }),
+    r360.getDefaultSurface()
   );
 
   // Load the initial environment

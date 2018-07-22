@@ -16,7 +16,7 @@ export default class Marker extends React.Component {
           style={{
             display: this.props.highlighted ? 'flex' : 'none',
             backfaceVisibility: 'hidden',
-            backgroundColor: this.props.highlighted ? '#F3F3F3' : '#E9E9E9',
+            backgroundColor: '#F3F3F3',
             paddingLeft: 0.025,
             paddingRight: 0.025,
             height: 0.05,
