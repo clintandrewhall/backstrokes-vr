@@ -10,10 +10,11 @@ export default class Marker extends React.Component {
           flex: 1,
           backfaceVisibility: 'hidden',
           justifyContent: 'center',
-          transform: [{ rotateX: 25 }, { translate: [-0.01, 0.08, -0.01] }],
+          transform: [{ rotateX: 30 }, { translate: [-0.01, 0.08, -0.01] }],
         }}>
         <Text
           style={{
+            display: this.props.highlighted ? 'flex' : 'none',
             backfaceVisibility: 'hidden',
             backgroundColor: this.props.highlighted ? '#F3F3F3' : '#E9E9E9',
             paddingLeft: 0.025,
@@ -27,10 +28,10 @@ export default class Marker extends React.Component {
             transform: [
               { scale: this.props.highlighted ? 1.75 : 1 },
               {
-                translateZ: this.props.highlighted ? 0.048 : 0.05,
+                translateY: this.props.highlighted ? 0.1 : 0.075,
               },
               {
-                translateY: this.props.highlighted ? 0.052 : 0.05,
+                translateZ: 0, //this.props.highlighted ? 0.01 : 0,
               },
             ],
           }}>
@@ -38,9 +39,11 @@ export default class Marker extends React.Component {
         </Text>
         <Image
           style={{
-            flex: 1,
+            display: this.props.highlighted ? 'flex' : 'none',
+            position: 'absolute',
             width: 0.075,
             height: 0.075,
+            transform: [{ translateY: 0 }],
           }}
           source={asset('pin.png')}
         />

@@ -40,6 +40,7 @@ export default class Backstrokes360 extends React.Component {
           style={{
             position: 'absolute',
             backgroundColor: '#333',
+            borderRadius: 0.05,
             height: 0.25,
             width: 0.25,
             justifyContent: 'center',
@@ -73,6 +74,7 @@ export default class Backstrokes360 extends React.Component {
           style={{
             position: 'absolute',
             backgroundColor: '#333',
+            borderRadius: 0.05,
             height: 0.25,
             width: 0.25,
             justifyContent: 'center',
@@ -119,6 +121,7 @@ export default class Backstrokes360 extends React.Component {
               bottom: 0,
               opacity: 0.5,
               backgroundColor: 'grey',
+              borderRadius: 0.05,
             }}
           />
           <Text
